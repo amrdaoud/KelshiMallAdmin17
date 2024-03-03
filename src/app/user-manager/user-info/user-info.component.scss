@@ -1,0 +1,19 @@
+.profile-container {
+    width:100%;text-align: center;
+    img {
+        width:150px;
+        height:150px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+        object-fit: cover;
+    }
+}
+.slider-container {
+    background-color: #CCCCCC;
+    border-radius: 10px !important;
+}
+.img-card {
+    padding: 10px;
+    border-radius: 10px;
+    margin-left: -10px
+}

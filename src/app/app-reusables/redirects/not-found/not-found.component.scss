@@ -1,0 +1,94 @@
+
+
+$animationTime: 2s;
+
+* {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.unauthorized {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom right, #EEE, #AAA);
+}
+
+h1 {
+  margin: 40px 0 20px;
+  padding-top: 50px;
+  text-align: center;
+}
+
+.lock {
+  border-radius: 5px;
+  width: 10px;
+  height: 45px;
+  background-color: #333;
+  //animation: dip 1s;
+  animation-delay: ($animationTime - .5);
+
+  &::before {
+    content: "";
+    position: absolute;
+    border: 5px solid #333;
+    height: 15px;
+    width: 5px;
+    left: -2px;
+  }
+
+  &::before {
+    bottom: -30px;
+    border: 5px solid #333;
+    /* border-bottom-color: transparent; */
+    border-radius: 20px;
+    height: 5px;
+    background-color: #333;
+    animation: spin 2s;
+  }
+
+  // &::after {
+  //   top: -10px;
+  //   border-right: 5px solid transparent;
+  //   animation: spin $animationTime;
+  // }
+}
+
+@keyframes lock {
+  0% {
+    bottom: -45px;
+  }
+  65% {
+    bottom: -45px;
+  }
+  100% {
+    bottom: -30px;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: scaleX(-1);
+    //left: calc(50% - 30px);
+  }
+  65% {
+    transform: scaleX(1);
+    //left: calc(50% - 12.5px);
+  }
+}
+
+@keyframes dip {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}

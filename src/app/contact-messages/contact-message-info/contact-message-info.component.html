@@ -1,0 +1,32 @@
+<mat-toolbar color="primary">
+    Message #{{message.contactMessageId}}
+    <span class="full-spacer"></span>
+    <button mat-icon-button *ngIf="message.status === 'Read'" matTooltip="Mark as unread" (click)="unread()"><mat-icon>drafts</mat-icon></button>
+    <button mat-icon-button *ngIf="message.status === 'Unread'"  matTooltip="Mark as read"(click)="read()"><mat-icon>mail</mat-icon></button>
+</mat-toolbar>
+<mat-card class="margined-card">
+    <mat-card-header class="card-header">
+        <div class="header">
+            <div class="big-bold-text" style="margin-left: 40px;">{{message.title}}</div>
+            <span class="full-spacer"></span>
+            <div class="small-bold-text"> {{message.messageDate | localeDate : 'MMM dd, y, hh:mm a'}}</div>
+        </div>
+        <div class="header">
+            <img [src]="message.profilePicture ?? 'assets/logo/logo-placeholder.png'">
+            <span class="small-bold-text grey-text">{{message.storeTitle ? message.storeTitle + ' | ' + message.mobileNumber : message.name + ' | ' + message.mobileNumber}}</span>
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-form-field style="width:100%">
+            <textarea matInput [value]="message.body" readonly class="no-resize" rows="10"></textarea>
+        </mat-form-field>
+        <div mat-card-actions *ngIf="message.attachmentUrl">
+            <button mat-stroked-button style="border-radius: 10px;" color="primary" (click)="openAttach()"><mat-icon>attach_file</mat-icon>Open Attachment</button>
+        </div>
+    </mat-card-content>
+    
+</mat-card>
+
+<div mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close style="width:100%">Close</button>
+</div>

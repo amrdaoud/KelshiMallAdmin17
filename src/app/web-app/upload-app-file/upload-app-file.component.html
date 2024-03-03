@@ -1,0 +1,27 @@
+<mat-grid-list class="page-with-toolbar" rowHeight="fit" rows="1" cols="1">
+    <mat-grid-tile>
+        <form [formGroup]="frm" (ngSubmit)="submit()">
+        <mat-card class="full-page-card">
+            <mat-card-title>
+                <h3 class="mat-h3">Upload KelshiMall App</h3>
+            </mat-card-title>
+            <mat-card-content>
+                <div style="width: 100%; text-align: center;">
+                    <input id="file-upload" #appFile type="file" name="fileUpload" accept=".apk" (change)="previewFile($event)"/>
+                </div>
+                <div style="width: 100%; text-align: center;">
+                    <button mat-raised-button style="width:50%" type="button" (click)="appFile.click()">
+                        SELECT NEW FILE
+                    </button>
+                </div>
+                <div style="width: 100%; text-align: center;">
+                    <button mat-raised-button style="width:50%" color="primary" [disabled]="frm.invalid || (uploading$ | async)">
+                        <span *ngIf="!(uploading$ | async)">UPLOAD</span>
+                        <span *ngIf="(uploading$ | async)">Uploading File..</span>
+                    </button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        </form>
+    </mat-grid-tile>
+</mat-grid-list>

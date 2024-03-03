@@ -1,0 +1,33 @@
+<mat-grid-list class="page-with-toolbar" rowHeight="fit" rows="1" cols="1">
+    <mat-grid-tile>
+        <app-data-table
+        title="Posts"
+        subtitle="(Auto refresh each 5 min)"
+        [data]="data"
+        [highlightProperty]="'status'"
+        [highlightValue]="'Pending'"
+        [dataSize]="dataSize"
+        [columnDefs]="(columnDefs | async)!"
+        [haveSearch]="true"
+        [filters]="filters"
+        [isAsync]="true"
+        [pageSize]="30"
+        [sortActive]="'postId'"
+        [sortDirection]="'desc'"
+        [isLoading]="isLoading$ | async"
+        [clickable]="true"
+        (changed)="tableChange($event)"
+        (downloadClicked)="download($event)"
+        [showSubmit]="false"
+        [preserveQueryParams]="true"
+        [isReport]="true"
+        [searchQueryPlaceHolder]="'Find by content or mobile'"
+        [haveDownload]="true"
+        (rowClicked)="goToPost($event)"
+        [menuBtns]="menuBtns"
+        (menuBtnClicked)="menuBtnClicked($event)"
+        [canOpenNewTab]="true"
+        (rightRowClicked)="goToPostNew($event)"
+        ></app-data-table>
+    </mat-grid-tile>
+</mat-grid-list>

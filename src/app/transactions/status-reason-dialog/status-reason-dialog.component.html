@@ -1,0 +1,16 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title style="margin-bottom: 10px;">
+            Rejection Reason
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-form-field style="width:100%">
+            <input matInput #statusReason>
+        </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions style="gap: 10px">
+            <button mat-raised-button color="primary" [mat-dialog-close]="statusReason.value" [disabled]="!statusReason.value">Set Reason</button>
+            <button mat-raised-button mat-dialog-close>Cancel</button>
+    </mat-card-actions>
+</mat-card>

@@ -1,0 +1,11 @@
+<div class="container">
+    <ul class="progressbar">
+        <li *ngFor="let status of statuses" [class]="status.iconClass!"
+            [matTooltip]="status.actionBy!"
+            [ngClass]="status.isDone === true ? 'active' : status.isDone ===false ? 'cancel' : ''"
+            [ngStyle]="{'width': 100/statuses.length + '%'}">
+            {{status.orderStatusName}}
+            <p>{{status.statusDate | date : 'MMM dd, y, hh:mm a'}}</p>
+        </li>
+    </ul>
+</div>

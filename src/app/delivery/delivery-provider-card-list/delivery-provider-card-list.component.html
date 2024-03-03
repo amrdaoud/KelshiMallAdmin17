@@ -1,0 +1,47 @@
+    <mat-grid-list [cols]="(isHandset$ | async) ? 1 : 3" rowHeight="400">
+    <mat-grid-tile *ngFor="let provider of providers$ | async">
+        <mat-card class="provider-card" [ngClass]="!provider.isActive ? 'inactive' : ''">
+            <mat-toolbar class="provider-name">{{provider.name}}<span *ngIf="!provider.isActive" style="color: #999">(Inactive)</span></mat-toolbar>
+            <div class="provider-card-header">
+                <img class="provider-card-logo" [src]="provider.logo ?? 'assets/logo/logo-placeholder.png'" onerror="this.onerror=null; this.src='assets/logo/delivery-service.png';">
+                <div class="provider-card-title">
+                    
+                </div>
+            </div>
+            <div class="provider-card-info-container">
+                <div class="provider-card-info">
+                    <mat-icon>location_on</mat-icon>
+                    <div>Delivers in {{provider.citiesText}}</div>
+                </div>
+                <div class="provider-card-info">
+                    <mat-icon>payments</mat-icon>
+                    <div>Starting from {{provider.feesText | number}} per KM</div>
+                </div>
+            </div>
+            <div class="provider-card-footer-container">
+                <div class="provider-card-footer">
+                    <div>{{provider.totalDoneOrders | number}}</div>
+                    <div class="small-footer">Done</div>
+                </div>
+                <div class="provider-card-footer">
+                    {{provider.totalPendingOrders | number}}
+                    <div class="small-footer">Pending</div>
+                </div>
+                <div class="provider-card-footer">
+                    {{provider.totalOrders | number}}
+                    <div class="small-footer">All</div>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+            <mat-card-actions class="card-action-container">
+                <button mat-stroked-button (click)="goToEdit(provider.deliveryProviderId)"><mat-icon>edit</mat-icon>Edit</button>
+                <button mat-stroked-button  color="primary" (click)="goToOrders(provider.deliveryProviderId)">Orders</button>
+            </mat-card-actions>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
+<div class="float-bottom-right-upper-primary" >
+    <button mat-fab routerLink="/delivery-providers/add">
+        <mat-icon>add</mat-icon>
+    </button>
+</div>

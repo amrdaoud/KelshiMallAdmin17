@@ -1,0 +1,26 @@
+<mat-grid-list class="page-with-toolbar" rowHeight="fit" rows="1" cols="1">
+    <mat-grid-tile>
+        <app-data-table
+        title="Notification History"
+        [data]="data"
+        [dataSize]="dataSize"
+        [columnDefs]="(columnDefs | async)!"
+        [haveSearch]="true"
+        [filters]="filters!"
+        [isAsync]="true"
+        [pageSize]="30"
+        [sortActive]="'date'"
+        [sortDirection]="'desc'"
+        [isLoading]="isLoading$ | async"
+        [isDownloading]="isDownloading$ | async"
+        (changed)="tableChange($event)"
+        (downloadClicked)="download($event)"
+        [showSubmit]="false"
+        [preserveQueryParams]="true"
+        [preserveSearchQuery]="true"
+        [isReport]="true"
+        [searchQueryPlaceHolder]="'Find by content or mobile'"
+        [haveDownload]="true"
+        ></app-data-table>
+    </mat-grid-tile>
+</mat-grid-list>

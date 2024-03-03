@@ -1,0 +1,27 @@
+.field-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    align-items: flex-start;
+  }
+  
+  .field-radio-button {
+    margin: 5px;
+  }
+  .sticky-actions {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width:calc(100% - 60px);
+    gap: 20px;
+    height:50px;
+    background-color: rgba($color: #000000, $alpha: 0.7);
+    align-items: center;
+    z-index: 101;
+    button {
+      flex: 1 1 auto;
+      margin: 10px;
+    }
+  }

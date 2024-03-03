@@ -1,0 +1,255 @@
+
+<ng-template #loading>
+<div class="overall-spinner-container" *ngIf="loading$ | async">
+    <mat-spinner diameter="40"></mat-spinner>
+</div>
+</ng-template>
+<div class="page-with-toolbar" >
+    
+    <div class="page-content" *ngIf="(user$ | async) as user; else loading">
+        <div class="float-bottom-right" *ngIf="canSendNotifications">
+            <button mat-fab routerLink="/" [mat-menu-trigger-for]="sendMenu">
+                <mat-icon svgIcon="send-icon"></mat-icon>
+            </button>
+        </div>
+        <mat-menu #sendMenu="matMenu">
+            <button type="button" mat-menu-item (click)="sendNotification(user.userId, user.storeName, user.storeId)">
+                <mat-icon color="primary">notifications</mat-icon>
+                Send user notification
+            </button>
+            <button [disabled]="!user.isActive" type="button" mat-menu-item (click)="sendNotificationOthers(user.userId, user.storeName, user.storeId)">
+                <mat-icon color="warn">notifications</mat-icon>
+                Notify others about store
+            </button>
+            <button type="button" mat-menu-item (click)="sendSms(user.mobileNumber)">
+                <mat-icon color="primary">message</mat-icon>
+                Send SMS
+            </button>
+        </mat-menu>
+        <div class="profile-container">
+            <img [src]="user.profilePicture ?? 'assets/logo/logo-placeholder.png'" [alt]="'Photo of ' + user.storeTitle" onerror="this.onerror=null; this.src='assets/logo/logo-placeholder.png';">
+            <div><a [href]="user.fullLink" target="_blank">{{user.fullLink}}</a></div>
+        </div>
+        
+        <h1 class="mat-h1" style="margin-bottom: 20px;">
+            User Info
+        </h1>
+            <mat-grid-list rowHeight="90" [cols]="3">
+                <mat-grid-tile>
+                    <mat-form-field class="full-width">
+                        <mat-label>
+                            User ID
+                        </mat-label>
+                        <input matInput [value]="user.userId" readonly>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="full-width">
+                        <mat-label>
+                            User Name
+                        </mat-label>
+                        <input matInput [value]="user.userName" readonly>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="full-width">
+                        <mat-label>
+                            Mobile Number
+                        </mat-label>
+                        <input matInput [value]="user.mobileNumber" readonly>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="full-width">
+                        <mat-label>
+                            Store Name
+                        </mat-label>
+                        <input matInput [value]="user.storeName" readonly>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="full-width">
+                        <mat-label>
+                            Membership
+                        </mat-label>
+                        <input matInput [value]="user.membershipName" readonly>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="full-width">
+                        <mat-label>
+                            Membership Expires
+                        </mat-label>
+                        <input matInput [value]="user.membershipEndDate | localeDate : 'MMM dd, y, hh:mm a'" readonly>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="full-width">
+                        <mat-label>
+                            Creation Date
+                        </mat-label>
+                        <input matInput [value]="user.creationDate | localeDate : 'MMM dd, y, hh:mm a'" readonly>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="full-width">
+                        <mat-label>
+                            Last Modified
+                        </mat-label>
+                        <input matInput [value]="user.lastModified | localeDate : 'MMM dd, y, hh:mm a'" readonly>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="full-width">
+                        <mat-label>
+                            Last Seen
+                        </mat-label>
+                        <input matInput [value]="user.lastSeen | localeDate : 'MMM dd, y, hh:mm a'" readonly>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="full-width">
+                        <mat-label>
+                            City
+                        </mat-label>
+                        <input matInput [value]="user.city" readonly>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="full-width">
+                        <mat-label>
+                            Area
+                        </mat-label>
+                        <input matInput [value]="user.area" readonly>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="full-width">
+                        <mat-label>
+                            Whatsapp Number
+                        </mat-label>
+                        <input matInput [value]="user.whatsAppNumber" readonly>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="full-width">
+                        <mat-label>
+                            Total Posts
+                        </mat-label>
+                        <input matInput [value]="user.totalPosts" readonly>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="full-width">
+                        <mat-label>
+                            Active Posts
+                        </mat-label>
+                        <input matInput [value]="user.totalActivePosts" readonly>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="full-width">
+                        <mat-label>
+                            Balance
+                        </mat-label>
+                        <input matInput [value]="user.walletBalance | currency" readonly>
+                    </mat-form-field>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-grid-list rowHeight="500" cols="1" style="margin-left: -20px">
+                <mat-grid-tile>
+                    <app-data-table
+                    [title]="user.userName + ' Posts'"
+                    [data]="postData"
+                    [clickable]="true"
+                    [dataSize]="postDataSize"
+                    [columnDefs]="(postColumnDefs | async)!"
+                    [isAsync]="true"
+                    [pageSize]="10"
+                    [sortActive]="'postId'"
+                    [sortDirection]="'desc'"
+                    [isLoading]="postLoading$ | async"
+                    (changed)="postTableChange($event)"
+                    (downloadClicked)="postDownload($event)"
+                    (rowClicked)="goToPost($event)"
+                    [showSubmit]="false"
+                    [preserveQueryParams]="true"
+                    [preserveSearchQuery]="true"
+                    [isReport]="true"
+                    [searchQueryPlaceHolder]="'Find by content or mobile'"
+                    [haveDownload]="true"
+                    [menuBtns]="postMenuBtns"
+                    (menuBtnClicked)="postMenuBtnClicked($event)"
+                    [canOpenNewTab]="true"
+                    (rightRowClicked)="goToPostNew($event)"
+                    ></app-data-table>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-grid-list rowHeight="500" cols="1" style="margin-left: -20px">
+                <mat-grid-tile>
+                    <app-data-table
+                    [title]="user.userName + ' Transactions'"
+                    [data]="transactionData"
+                    [dataSize]="transactionDataSize"
+                    [columnDefs]="(transactionColumnDefs | async)!"
+                    [isAsync]="true"
+                    [pageSize]="10"
+                    [sortActive]="'transactionDate'"
+                    [sortDirection]="'desc'"
+                    [isLoading]="transactionLoading$ | async"
+                    (changed)="transactionTableChange($event)"
+                    (downloadClicked)="transactionDownload($event)"
+                    [showSubmit]="false"
+                    [preserveQueryParams]="true"
+                    [preserveSearchQuery]="true"
+                    [isReport]="true"
+                    [searchQueryPlaceHolder]="'Find by content or mobile'"
+                    [haveDownload]="true"
+                    ></app-data-table>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-grid-list rowHeight="500" cols="1" style="margin-left: -20px">
+                <mat-grid-tile>
+                    <app-data-table
+                    [title]="user.userName + ' Membership History'"
+                    [btns]="canChange ? membershipBtns : []"
+                    [data]="membershipData"
+                    [dataSize]="membershipDataSize"
+                    [columnDefs]="(membershipColumnDefs | async)!"
+                    [isAsync]="true"
+                    [pageSize]="10"
+                    [sortActive]="'subscriptionDate'"
+                    [sortDirection]="'desc'"
+                    [isLoading]="membershipLoading$ | async"
+                    (changed)="membershipTableChange($event)"
+                    (downloadClicked)="membershipDownload($event)"
+                    (btnClicked)="membershipBtnClicked($event)"
+                    [showSubmit]="false"
+                    [preserveQueryParams]="true"
+                    [preserveSearchQuery]="true"
+                    [isReport]="true"
+                    [searchQueryPlaceHolder]="'Find by content or mobile'"
+                    [haveDownload]="true"
+                    ></app-data-table>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-grid-list rowHeight="200" cols="1" style="margin-left: -20px">
+                <mat-grid-tile>
+                    <div style="width:100%; padding-left: 15px; padding-right:13px;">
+                        <ng-image-slider [images]="backgroundPictures" #nav></ng-image-slider>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-grid-list rowHeight="90" [cols]="1" class="bottom-buttons">
+                <mat-grid-tile *ngIf="!(userActivating | async); else activating">
+                    <button *ngIf="isActive" mat-raised-button color="warn" (click)="deactivateUser()">Deactivate User</button>
+                    <button *ngIf="!isActive" mat-raised-button color="primary"(click)="activateUser()">Activate User</button>
+                </mat-grid-tile>
+                <ng-template #activating>
+                    <mat-grid-tile>
+                        <mat-spinner diameter="50"></mat-spinner>
+                    </mat-grid-tile>
+                </ng-template>
+            </mat-grid-list>
+    </div>
+</div>

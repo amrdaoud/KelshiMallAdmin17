@@ -1,0 +1,22 @@
+<div class="overall-spinner-container" *ngIf="loadingProviders$ | async">
+    <mat-spinner diameter="40"></mat-spinner>
+</div>
+<mat-card>
+    <mat-card-content>
+        <div class="section-header">
+            <h3 class="section-title">"{{data.user.username}}" Delivery Providers</h3>
+            <p class="section-subtitle">Link user to delivery provider</p>
+        </div>
+        <mat-selection-list [(ngModel)]="selectedProviders">
+            <mat-list-option *ngFor="let provider of providers$ | async" [value]="provider.deliveryProviderId">
+                {{provider.name}}
+            </mat-list-option>
+        </mat-selection-list>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-actions align="end">
+        <button mat-raised-button color="primary" [disabled]="(loadingProviders$ | async) || !selectedProviders || selectedProviders.length == 0" (click)="submit()"><mat-icon>save</mat-icon>SAVE</button>
+        <button mat-stroked-button type="button" mat-dialog-close [disabled]="loadingProviders$ | async" 
+            color="warn"><mat-icon>close</mat-icon>CANCEL</button>
+    </mat-card-actions>
+</mat-card>

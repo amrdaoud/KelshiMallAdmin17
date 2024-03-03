@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+    Select Service
+</mat-toolbar>
+<mat-selection-list *ngIf="paidServices" [multiple]="false" [(ngModel)]="selectedService">
+    <mat-list-option *ngFor="let service of paidServices" [value]="service">
+        {{service.nameEn}}
+    </mat-list-option>
+</mat-selection-list>
+<mat-divider></mat-divider>
+<mat-form-field style="margin-top: 20px;">
+    <mat-label>
+        Repost Hour
+    </mat-label>
+    <mat-select #selectInput value="00">
+        <mat-option *ngFor="let hour of hours" [value]="hour">
+            {{hour}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" [disabled]="selectedService.length === 0" [mat-dialog-close]="{paidService: selectedService[0], hour: selectInput.value}">Add Service</button>
+    <button mat-raised-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

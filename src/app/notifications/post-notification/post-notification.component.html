@@ -1,0 +1,18 @@
+<div class="notification-header">
+    <div class="notification-icon">
+        <mat-icon>notifications</mat-icon>
+    </div>
+    <div class="notification-title">
+        {{data.notification?.title}}
+        <p style="font-size: 14px;">
+            {{data.notification?.body}}
+        </p>
+    </div>
+</div>
+<div class="notification-image" *ngIf="data.notification?.image">
+    <img [src]="data.notification?.image">
+</div>
+<div class="notification-btns">
+    <button mat-raised-button color="primary" style="width:100%" *ngIf="data.data!['route']" (click)="close(data.data!['route'])">Show</button>
+</div>
+<button mat-icon-button class="notification-close-btn" (click)="close()"><mat-icon>close</mat-icon></button>

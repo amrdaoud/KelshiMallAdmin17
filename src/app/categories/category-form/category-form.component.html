@@ -1,0 +1,53 @@
+<mat-toolbar color="primary">
+    <span *ngIf="data.category">
+        Category #{{data.category.categoryId}} - update
+    </span>
+    <span *ngIf="!data.category">
+        Add new Category
+    </span>
+    <span class="full-spacer"></span>
+    <button mat-icon-button (click)="reset()"><mat-icon>refresh</mat-icon></button>
+</mat-toolbar>
+<form formGroup="frm">
+    <mat-grid-list rowHeight="50" cols="1">
+        <mat-grid-tile>
+            <div class="category-icon-container">
+                <img [src]="iconSource" onerror="this.onerror=null; this.src='assets/logo/logo-placeholder.png';">
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-button type="button" (click)="image.click()"><mat-icon>edit</mat-icon> Edit Icon</button>
+            <button mat-button color="warn" type="button" *ngIf="iconSource" (click)="deleteIcon()"><mat-icon>delete</mat-icon> Delete Icon</button>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-list rowHeight="90" cols="1">
+        <input id="file-upload" #image
+            type="file" name="fileUpload" accept=".png,.jpg,.jpeg" (change)="previewIcon($event)"/>
+        <mat-grid-tile *ngIf="!data.isParent">
+            <app-select [options]="(data.categoryList$ | async)!" optionDisplay="nameAr" optionValue="categoryId" [formGroup]="frm" controlName="ParentCategoryId" label="Parent Category"></app-select>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <app-input [formGroup]="frm" controlName="NameEn" label="English Name"></app-input>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <app-input [formGroup]="frm" controlName="NameAr" label="Arabic Name"></app-input>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <app-input [formGroup]="frm" controlName="BackGroundColor" label="Background Color" type="color"></app-input>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <app-input [formGroup]="frm" controlName="HighlightColor" label="Highlight Color" type="color"></app-input>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <app-input [formGroup]="frm" controlName="Sorting" label="Sorting" type="number"></app-input>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <!-- <mat-form-field>
+        <input matInput formControlName="NameEn">
+    </mat-form-field> -->
+    <mat-dialog-actions align="end">
+        <button mat-raised-button color="primary" [disabled]="frm.invalid" [mat-dialog-close]="frm.value">Submit</button>
+        <button mat-button type="button" mat-dialog-close>Cancel</button>
+    </mat-dialog-actions>
+</form>
+

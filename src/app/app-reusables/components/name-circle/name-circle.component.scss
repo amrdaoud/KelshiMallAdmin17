@@ -1,0 +1,41 @@
+@import '../../../../variables.scss';
+.name-holder {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 0px;
+  }
+  .name-circle {
+    width:40px;
+    height:40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-weight: 600;
+    font-size: large;
+    
+  }
+  .name-text {
+    margin-right:10px;
+  }
+  .mat-h4 {
+    color: #8f8f8f;
+    font-size: 14px;
+    letter-spacing: 0.7px;
+  }
+  .name-circle.primary {
+    background-color: rgba($primary-color,1);
+    color: #fff;
+  }
+  .name-circle.accent {
+    background-color: rgba($accent-color,0.4);
+    color: $accent-color;
+  }
+  .name-circle.green {
+    background-color: rgba(#4CAF50,0.4);
+    color: #4CAF50;
+  }
+  .name-circle.orange {
+    background-color: rgba(#FF5722,0.4);
+    color: #FF5722;
+  }

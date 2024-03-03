@@ -1,0 +1,64 @@
+<mat-drawer-container class="main-nav-container mat-typography" [@.disabled]="true" (backdropClick)="opened = false">
+    <mat-drawer #drawer [opened]="opened" [mode]="(handset$ | async) ? 'over' : 'side'" class="dark icon-drawer" style="padding:13px;">
+        <div style="width:100%;margin-bottom: 20px; display: flex; align-items: center; gap: 15px;">
+            <div
+                style="width: 33px; height: 33px; border-radius: 5px; text-align: center; line-height: 33px; font-weight: bolder; font-size: 24px;">
+                <img src="assets/logo/logo-vertical.png" style="height:100%">
+            </div>
+            <div style="font-size: 18px;letter-spacing: 1px;font-weight: 500; color: white;" *ngIf="opened">
+                <div class="mat-h3">Kelshi Mall</div>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <mat-nav-list>
+            <mat-list-item *ngFor="let element of elements.top" [matTooltip]="!drawer.opened ? element.Name : ''" [matTooltipPosition]="'right'" [routerLink]="element.Route">
+                <mat-icon [svgIcon]="element.Icon" style="stroke:rgb(180, 180, 180)" matListItemIcon></mat-icon>
+                <span class="navName" *ngIf="opened">{{element.Name}}</span>
+                <!-- <span class="attention"></span> -->
+            </mat-list-item>
+        </mat-nav-list>
+        <span class="full-spacer"></span>
+        <mat-nav-list>
+            <mat-list-item *ngFor="let element of elements.middle" [matTooltip]="!drawer.opened ? element.Name : ''" [matTooltipPosition]="'right'" [routerLink]="element.Route" >
+                <mat-icon [svgIcon]="element.Icon" style="stroke:rgb(180, 180, 180)" matListItemIcon></mat-icon>
+                <span class="navName" *ngIf="opened">{{element.Name}}</span>
+            </mat-list-item>
+        </mat-nav-list>
+        <span class="full-spacer"></span>
+        <mat-nav-list>
+            <mat-list-item *ngFor="let element of elements.bottom" [matTooltip]="!drawer.opened ? element.Name : ''" [matTooltipPosition]="'right'" [routerLink]="element.Route" >
+                <mat-icon [svgIcon]="element.Icon" style="stroke:rgb(180, 180, 180)"  matListItemIcon></mat-icon>
+                <span class="navName" *ngIf="opened">{{element.Name}}</span>
+            </mat-list-item>
+            <mat-list-item (click)="logOut()" [matTooltip]="!drawer.opened ? 'Logout' : ''" [matTooltipPosition]="'right'">
+                <mat-icon svgIcon="logout-icon" style="stroke:rgb(180, 180, 180)" matListItemIcon></mat-icon>
+                <span class="navName" *ngIf="opened">Logout </span>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-drawer>
+    <mat-drawer-content [ngClass]="!opened || (handset$ | async) ? 'mat-drawer-content-closed' : ''" class="with-drawer-toggle">
+        <mat-toolbar class="main-toolbar">
+            <h1 class="mat-h1">Kelshi Mall Admin</h1>
+        <span class="full-spacer"></span>
+        <div *ngIf="(account$ | async) as account; else noAuth" class="clickable">
+            <app-name-circle [name]="account.userName!" [mat-menu-trigger-for]="accountMenu"></app-name-circle>
+            <mat-menu #accountMenu="matMenu">
+                <button mat-menu-item routerLink="change-password">
+                    <mat-icon>password</mat-icon> Change Password
+                </button>
+            </mat-menu>
+        </div>
+        <ng-template #noAuth>
+            <button mat-raised-button color="primary" routerLink="login">
+                <mat-icon svgIcon="login-icon" style="stroke:#fff"></mat-icon>Login</button>
+        </ng-template>
+        </mat-toolbar>
+        <button mat-raised-button color="accent" class="toggle-btn" (click)="opened = !opened">
+            <mat-icon *ngIf="opened">chevron_left</mat-icon>
+            <mat-icon *ngIf="!opened">navigate_next</mat-icon>
+        </button>
+        <div class="main-page-container">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>

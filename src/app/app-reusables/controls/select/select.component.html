@@ -1,0 +1,19 @@
+<mat-form-field appearance="outline" floatLabel="always">
+    <mat-label>
+      {{label}}
+    </mat-label>
+    <mat-select [formControl]="formControl" [placeholder]="placeHolder" (valueChange)="onValueChange($event)" [multiple]="isMulty">
+      <mat-option value="" *ngIf="haveNull"></mat-option>
+      <mat-option *ngFor="let option of options" [value]="optionValue !== 'same' ? option[optionValue] : option">
+        {{option[optionDisplay]}}
+      </mat-option>
+    </mat-select>
+    <div matSuffix style="width:20px; padding-right: 8px;">
+      <mat-icon matSuffix color="primary" *ngIf="!isLoading && !formControl.pending && formControl.touched && isAsync && formControl.valid">check</mat-icon>
+      <mat-spinner matSuffix color="primary" diameter=20 *ngIf="(isAsync && formControl.pending) || isLoading"></mat-spinner>
+    </div>
+    <mat-error *ngIf="!formControl.pending && formControl.touched && formControl.invalid">
+      {{getErrors()}}
+    </mat-error>
+  </mat-form-field>
+  

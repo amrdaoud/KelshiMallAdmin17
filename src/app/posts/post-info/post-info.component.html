@@ -1,0 +1,80 @@
+<ng-template #loading>
+    <div class="overall-spinner-container" *ngIf="loading$ | async">
+        <mat-spinner diameter="40"></mat-spinner>
+    </div>
+</ng-template>
+<div class="page-with-toolbar" >
+    <div class="page-content"*ngIf="post$ | async as post;else loading">
+        <h1 class="mat-h1" style="margin-bottom: 20px;">
+            Post #{{post.postId}} by: {{post.storeTitle}} | {{post.userMobile}}
+        </h1>
+        <h3 class="mat-h3" style="margin-bottom: 10px;">Post Images</h3>
+        <ng-image-slider [images]="postAttachements" #nav></ng-image-slider>
+        
+        <mat-card style="padding: 0px 20px; margin-top: 20px;">
+            <h3 class="mat-h3" style="margin-bottom: 10px; margin-top: 30px;"> Main Information</h3>
+            <mat-list>
+                <mat-list-item>
+                    <span matListItemTitle>Title</span>
+                    <span matListItemLine><input [(ngModel)]="title"></span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Description</span>
+                    <span matListItemLine>{{post.description}}</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Posted On</span>
+                    <span matListItemLine> {{post.postingDate | localeDate : 'MMM dd, y, hh:mm a'}}</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Price</span>
+                    <span matListItemLine> {{post.price | currency}}</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>City</span>
+                    <span matListItemLine> {{post.city}}</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Area</span>
+                    <span matListItemLine> {{post.area}}</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Category</span>
+                    <span matListItemLine> {{post.parentCategoryName}} - {{post.categoryName}}</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Status</span>
+                    <span matListItemLine> {{post.status}}</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Reason</span>
+                    <span matListItemLine> {{post.statusReason}}</span>
+                </mat-list-item>
+            </mat-list>
+            <h3 class="mat-h3" style="margin-bottom: 10px; margin-top: 30px;">Post Data</h3>
+                <ng-container *ngFor="let postData of post.postData let i = index">
+                    <ng-container [ngSwitch]="postData.parameterTypeName">
+                        <h4 class="mat-h4" *ngSwitchCase="'Label'">{{postData.parameterLabel}}</h4>
+                        <ng-container *ngSwitchCase="'Integer'">
+                            <h4 class="mat-h4">{{postData.parameterLabel}}</h4>
+                            <p>{{postData.parameterValue}}</p>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'DropdownList'">
+                            <h4 class="mat-h4">{{postData.parameterLabel}}</h4>
+                            <p>{{postData.parameterValue}}</p>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'RadioButton'">
+                            <h4 class="mat-h4">{{postData.parameterLabel}}</h4>
+                            <p>{{postData.parameterValue}}</p>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'CheckBox'">
+                            <h4 class="mat-h4">{{postData.parameterLabel}}</h4>
+                            <p>{{postData.parameterValue}}</p>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+        </mat-card>
+        
+        
+    </div>
+</div>

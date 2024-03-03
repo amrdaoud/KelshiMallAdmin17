@@ -1,0 +1,18 @@
+<mat-card>
+        <mat-card-content>
+            <div class="form-controls-container have-actions">
+            <div class="section-header">
+                <h3 class="section-title">Rejection Reason</h3>
+                <p class="section-subtitle">You need to assign rejection reason</p>
+            </div>
+                    <mat-form-field style="width:100%">
+                        <mat-label>Reason</mat-label>
+                        <textarea matInput [(ngModel)]="statusReason"></textarea>
+                    </mat-form-field>
+        <mat-divider></mat-divider>
+            </div>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button style="width: 100%;" mat-raised-button color="warn" [disabled]="!statusReason" (click)="close()">Set Reason</button>
+        </mat-card-actions>
+</mat-card>

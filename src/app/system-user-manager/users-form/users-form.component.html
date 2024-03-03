@@ -1,0 +1,54 @@
+<div class="overall-spinner-container" *ngIf="loadingForm$ | async">
+    <mat-spinner diameter="40"></mat-spinner>
+</div>
+<mat-card *ngIf="frm">
+    <form [formGroup]="frm" (ngSubmit)="submit()">
+        <mat-card-content>
+            <div class="form-controls-container have-actions">
+            <div class="section-header">
+                <h3 class="section-title">User Information</h3>
+                <p class="section-subtitle">User Main Credentials</p>
+            </div>
+            <mat-grid-list rowHeight="90" [cols]="(isHandset$ | async) ? 1 : 2">
+                <mat-grid-tile>
+                    <app-input controlName="UserName" [formGroup]="frm" [isAsync]="true" label="User Name"></app-input>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <app-input controlName="FullName" [formGroup]="frm" [isAsync]="true" label="Full Name"></app-input>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <app-input controlName="Password" [formGroup]="frm" label="Password" type="password"></app-input>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <app-input controlName="PasswordConfirm" [formGroup]="frm" label="Confirm Password" type="password"></app-input>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-divider></mat-divider>
+            <div class="section-header">
+                <h3 class="section-title">Access Information</h3>
+                <p class="section-subtitle">Select user access roles</p>
+            </div>
+            <mat-grid-list rowHeight="90" cols="1">
+                <mat-grid-tile>
+                    <app-select controlName="Roles" [formGroup]="frm" label="Roles"
+                        [options]="(roles$ | async)!" optionDisplay="Name" optionValue="Name" [isMulty]="true"></app-select>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </div>
+        </mat-card-content>
+        <mat-divider></mat-divider>
+        <mat-card-actions align="end" *ngIf="!(isHandset$ | async)">
+            <button mat-raised-button color="primary" [disabled]="frm.invalid || (loadingForm$  | async)"><mat-icon>save</mat-icon>SAVE</button>
+            <button mat-button type="button" (click)="reset()" [disabled]="(loadingForm$  | async)"><mat-icon>settings_backup_restore</mat-icon>RESET</button>
+            <button mat-stroked-button type="button" mat-dialog-close [disabled]="(loadingForm$  | async)"
+                color="warn"><mat-icon>close</mat-icon>CANCEL</button>
+        </mat-card-actions>
+
+        <mat-card-actions align="end" *ngIf="(isHandset$ | async)" class="handset">
+            <button mat-icon-button color="primary" [disabled]="frm.invalid || (loadingForm$  | async)"><mat-icon>save</mat-icon></button>
+            <button mat-icon-button type="button" (click)="reset()" [disabled]="(loadingForm$  | async)"><mat-icon>settings_backup_restore</mat-icon></button>
+            <button mat-icon-button type="button" mat-dialog-close [disabled]="(loadingForm$  | async)"
+                color="warn"><mat-icon>close</mat-icon></button>
+        </mat-card-actions>
+    </form>
+</mat-card>

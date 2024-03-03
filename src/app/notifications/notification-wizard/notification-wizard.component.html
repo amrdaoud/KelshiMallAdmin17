@@ -1,0 +1,49 @@
+<div class="page-with-toolbar">
+    <mat-grid-list rowHeight="100%" cols="1">
+        <mat-card class="start-top-container">
+            <mat-horizontal-stepper>
+                <mat-step>
+                    <form [formGroup]="frm">
+                        <ng-template matStepLabel>Select targeted users</ng-template>
+                        <div class="forms-container">
+                            <mat-grid-list rowHeight="90" cols="3">
+                                <mat-grid-tile class="form-tile" *ngFor="let filter of filters">
+                                    <ng-container
+                                        [ngTemplateOutlet]="filter.type == 'text' ? inputControl : filter.type == 'select' ? selectControl : inputControl"
+                                        [ngTemplateOutletContext]="{filter:filter}">
+                                    </ng-container>
+                                    <ng-template #inputControl let-filter=filter>
+                                        <mat-form-field class="container-form">
+                                            <mat-label>{{filter.label}}</mat-label>
+                                            <input matInput [formControlName]="filter.controlName">
+                                        </mat-form-field>
+                                    </ng-template>
+                                    <ng-template #selectControl let-filter=filter>
+                                        <mat-form-field class="container-form">
+                                            <mat-label>{{filter.label}}</mat-label>
+                                            <mat-select [formControlName]="filter.controlName" [multiple]="filter.isMultiple">
+                                                <mat-option [value]=null>
+                                                    All
+                                                </mat-option>
+                                                <mat-option *ngFor="let option of filter.data" [value]="option[filter.valueAccessor]">
+                                                    {{option[filter.displayAccessor]}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </ng-template>
+                                </mat-grid-tile>
+                            </mat-grid-list>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step>
+                    <ng-template matStepLabel>Preview</ng-template>
+                </mat-step>
+                <mat-step>
+                    <ng-template matStepLabel>Notification Data</ng-template>
+                </mat-step>
+            </mat-horizontal-stepper>
+        </mat-card>
+    </mat-grid-list>
+
+</div>

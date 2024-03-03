@@ -1,0 +1,84 @@
+.container {
+    min-width:100%;
+    overflow-x: auto;
+}
+.progressbar {
+    counter-reset: step;
+    padding-left: 0px;
+}
+.progressbar li {
+    list-style-type: none;
+    float: left;
+    position: relative;
+    text-align: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: #888;
+    p {
+        font-size: 10px;
+        color: #333;
+    }
+}
+.progressbar li:before {
+    font-family: 'Material Icons';
+    content: "";
+    position: relative;
+    // content: counter(step);
+    counter-increment: step;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #ddd;
+    display: block;
+    text-align: center;
+    margin: 0 auto 10px auto;
+    border-radius: 50%;
+    line-height: 40px;
+    background-color: white;
+    z-index: 2;
+    font-size: 24px;
+}
+.progressbar li:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    background-color: #ddd;
+    top: 18px;
+    left: -50%;
+    z-index: 1 !important;
+}
+.progressbar li:first-child:after {
+    content: none;;
+}
+.progressbar li.active {
+    color: green !important;
+}
+.progressbar li.active:before {
+    border-color: green !important;
+}
+.progressbar li.active + li:after {
+    background-color: green !important;
+}
+
+.progressbar li.cancel {
+    color: red;
+}
+.progressbar li.cancel:before {
+    border-color: red;
+}
+.progressbar li.cancel + li:after {
+    background-color: red;
+}
+.person:before {
+    content: "person" !important;
+}
+.delivery:before {
+    content: "local_shipping" !important;
+}
+.done:before {
+    content: "done" !important;
+}
+.cancel:before {
+    content: "close" !important;
+}

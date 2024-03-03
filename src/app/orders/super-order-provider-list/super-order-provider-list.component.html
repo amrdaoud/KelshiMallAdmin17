@@ -1,0 +1,8 @@
+<mat-tab-group class="page-with-toolbar">
+    <mat-tab label="Pending">
+        <app-order-provider-list title="Pending Orders" [pending]="true"></app-order-provider-list>
+    </mat-tab>
+    <mat-tab label="Closed">
+        <app-order-provider-list title="Closed Orders" [pending]="false"></app-order-provider-list>
+    </mat-tab>
+</mat-tab-group>

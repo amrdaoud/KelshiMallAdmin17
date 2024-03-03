@@ -1,0 +1,38 @@
+<div class="flex-container account-bg">
+    <form [formGroup]="frm" (ngSubmit)="login()">
+        <mat-card class="account-card">
+            <div class="overall-spinner-container" *ngIf="loadingLogin$ | async">
+                <mat-spinner diameter="40"></mat-spinner>
+              </div>
+            <div class="logo-container">
+                <img src="assets/logo/logo-horizontal-colored.png">
+            </div>
+            <mat-divider></mat-divider>
+            <mat-card-header>
+                <mat-card-title translate>
+                    Login
+                </mat-card-title>
+                <mat-card-subtitle translate>
+                    Please fill in your credentials
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-grid-list rowHeight="90" cols="1">
+                    <mat-grid-tile>
+                        <app-input controlName="UserName" [formGroup]="frm" label="User Name"></app-input>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <app-input controlName="Password" [formGroup]="frm" label="Password" type="password"></app-input>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card-content>
+            <div style="height:15px; text-align: center; width:100%; font-size: 12px; color: red;">
+                {{errorMessage}}
+            </div>
+            <!-- <button mat-button type="button" routerLink="/account/forget-password-send">Forget you password?</button> -->
+            <mat-card-actions>
+                <button mat-raised-button color="primary" style="width:100%" [disabled]="frm.invalid">LOGIN</button>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+</div>

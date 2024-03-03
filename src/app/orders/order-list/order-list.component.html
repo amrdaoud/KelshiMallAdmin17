@@ -1,0 +1,52 @@
+<mat-grid-list class="page-with-toolbar" rowHeight="fit" rows="1" cols="1">
+    <mat-grid-tile>
+        <app-data-table
+        [title]="title"
+        [data]="data"
+        [dataSize]="dataSize"
+        [columnDefs]="(columnDefs | async)!"
+        [haveSearch]="true"
+        [filters]="filters"
+        [isAsync]="true"
+        [pageSize]="30"
+        [sortActive]="'orderDate'"
+        [sortDirection]="'desc'"
+        [isLoading]="isLoading$ | async"
+        [isDownloading]="isDownloading$ | async"
+        (changed)="tableChange($event)"
+        (downloadClicked)="download($event)"
+        [showSubmit]="false"
+        [preserveSearchQuery]="true"
+        [isReport]="true"
+        [searchQueryPlaceHolder]="'Find by content or mobile'"
+        [haveDownload]="true"
+        (rowClicked)="rowClick($event)"
+        [clickable]="true"
+        ></app-data-table>
+    </mat-grid-tile>
+</mat-grid-list>
+
+
+<!-- <mat-grid-list class="page-with-toolbar" rowHeight="fit" rows="1" cols="1">
+    <mat-grid-tile>
+        <app-data-table
+        title="Orders"
+        [data]="data"
+        [dataSize]="dataSize"
+        [columnDefs]="(columnDefs | async)!"
+        [haveSearch]="true"
+        [isAsync]="true"
+        [pageSize]="30"
+        [sortActive]="'orderDate'"
+        [sortDirection]="'desc'"
+        [isLoading]="isLoading$ | async"
+        (changed)="tableChange($event)"
+        [showSubmit]="false"
+        [preserveQueryParams]="true"
+        [preserveSearchQuery]="true"
+        [isReport]="true"
+        [searchQueryPlaceHolder]="'Find by content or mobile'"
+        [haveDownload]="true"
+        ></app-data-table>
+    </mat-grid-tile>
+</mat-grid-list> -->

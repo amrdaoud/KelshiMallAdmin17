@@ -1,0 +1,54 @@
+<div class="page-with-toolbar">
+    <mat-grid-list rowHeight="100%" [cols]="(isHandset$ | async) ? 1 : 2">
+        <mat-grid-tile>
+            <mat-card class="start-top-container">
+                <mat-form-field class="container-form">
+                    <mat-label>
+                        Category
+                    </mat-label>
+                    <mat-select [(ngModel)]="selectedCategory" (valueChange)="resetFields(); resetContents();">
+                        <mat-option *ngFor="let category of categories$ | async" [value]="category">
+                                #{{category.categoryId}}: {{category.nameAr}}
+                        </mat-option>
+                        <!-- <mat-option (click)="openCategoryForm()">
+                            <button  mat-button color="primary"><mat-icon>add</mat-icon>Add New Category</button>
+                        </mat-option> -->
+                    </mat-select>
+                    <!-- <button matSuffix mat-icon-button *ngIf="selectedCategory" (click)="$event.stopPropagation(); openCategoryForm(selectedCategory)" color="primary"><mat-icon >edit</mat-icon></button> -->
+                </mat-form-field>
+                <mat-form-field class="container-form">
+                    <mat-label>
+                        Sub-Category
+                    </mat-label>
+                    <mat-select (valueChange)="getFields($event)">
+                        <ng-container *ngIf="selectedCategory">
+                            <mat-option *ngFor="let category of selectedCategory!.inverseParentCategory" [value]="category">
+                                    #{{category.categoryId}}: {{category.nameAr}}
+                            </mat-option>
+                            <!-- <mat-option (click)="openSubCategoryForm()">
+                                <button  mat-button color="primary"><mat-icon>add</mat-icon>Add New Sub-Category</button>
+                            </mat-option> -->
+                        </ng-container>
+                    </mat-select>
+                    <!-- <button matSuffix mat-icon-button *ngIf="selectedSubCategoryName" (click)="$event.stopPropagation(); openSubCategoryForm(selectedSubCategory)" color="primary"><mat-icon >edit</mat-icon></button> -->
+                </mat-form-field>
+                    <mat-grid-list class="full-spacer" rowHeight="100%" cols="1">
+                        <mat-grid-tile>
+                            <app-data-table [isReport]="true" [title]="selectedSubCategoryName" [data]="fields" [clickable]="true" (rowClicked)="showFieldContents($event)"
+                                [isAsync]="false" [columnDefs]="fieldsCols"></app-data-table>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+
+            </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-card class="start-top-container">
+                <mat-grid-list class="full-spacer" rowHeight="100%" cols="1">
+                    <mat-grid-tile>
+                        <app-data-table [isReport]="true" [title]="selectedFieldName" [data]="contents" [isAsync]="false" [columnDefs]="contentCols"></app-data-table>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

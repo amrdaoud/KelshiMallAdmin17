@@ -1,0 +1,33 @@
+<form [formGroup]="frm" (ngSubmit)="submit()">
+<mat-grid-list rowHeight="400" [cols]="(isHandset$ | async) ? 1 : 3">
+    <mat-grid-tile [colspan]="(isHandset$ | async) ? 1 : 3">
+        <app-input [formGroup]="frm" [label]="routeIsExclude ? 'Excluded User Ids' : 'User Ids'" controlName="UserIds" placeHolder="Place each Id in a new line" type="text-area" [lines]="16"></app-input>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <div style="width:100%;height:100%;; padding-right: 20px;">
+            <app-input [formGroup]="frm" label="Title" controlName="Title"></app-input>
+            <app-input [formGroup]="frm" label="Body" controlName="Body" type="text-area" [lines]="6"></app-input>
+            <mat-checkbox formControlName="Save" style="margin-left: 6px;">Place it in notification inbox?</mat-checkbox>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <div style="width:100%;height:100%; padding-right: 20px;" formGroupName="Data">
+            <app-select [options]="routeOptions" label="Route to" controlName="route" optionValue="Value" optionDisplay2="Name" [formGroup]="dataForm"></app-select>
+            <app-input [formGroup]="dataForm" label="Post Id" controlName="postId" type="number"></app-input>
+            <app-input [formGroup]="dataForm" label="Store Id" controlName="storeId" type="number"></app-input>
+            <mat-checkbox formControlName="isMyPost" style="margin-left: 6px;">My Post?</mat-checkbox>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <div style="width:100%;height:100%; padding-right: 20px;padding-top: 12px; text-align: center;">
+            <button mat-raised-button color="primary" style="width:60%;margin-bottom: 30px;height:56px;" [disabled]="frm.invalid || (loadingSendNotifications$ | async)">
+                <span *ngIf="!(loadingSendNotifications$ | async)">Send Notifications</span>
+                <span *ngIf="(loadingSendNotifications$ | async)">Sending..</span>
+            </button>
+            <button mat-raised-button style="width:60%;margin-bottom: 30px;height:56px;" type="button" (click)="resetContents()">Reset Notification Contents</button>
+            <button mat-raised-button style="width:60%;height:56px;" (click)="resetAll()">Reset All</button>
+        </div>
+        
+    </mat-grid-tile>
+</mat-grid-list>
+</form>

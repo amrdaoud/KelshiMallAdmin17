@@ -1,0 +1,35 @@
+<mat-grid-list class="page-with-toolbar" rowHeight="fit" rows="1" cols="1">
+    <mat-grid-tile>
+        <app-data-table
+        title="Redeem Codes"
+        subtitle="Double click to show info"
+        [data]="data"
+        [dataSize]="dataSize"
+        [columnDefs]="(columnDefs | async)!"
+        [haveSearch]="true"
+        [filters]="filters!"
+        [menuBtns]="menuButtons!"
+        [selectBtns]="selectButtons!"
+        [isAsync]="true"
+        [pageSize]="30"
+        [sortActive]="'issuingDate'"
+        [sortDirection]="'desc'"
+        [isLoading]="isLoading$ | async"
+        [isDownloading]="isDownloading$ | async"
+        [clickable]="true"
+        (changed)="tableChange($event)"
+        (downloadClicked)="download($event)"
+        (menuBtnClicked)="tableMenuClicked($event)"
+        (rowClicked)="goToInfo($event)"
+        (btnClicked)="tableBtnClicked($event)"
+        (selectBtnClicked)="selectBtnClicked($event)"
+        [showSubmit]="false"
+        [preserveQueryParams]="true"
+        [preserveSearchQuery]="true"
+        [btns]="btns!"
+        [isReport]="true"
+        [searchQueryPlaceHolder]="'Find by content or mobile'"
+        [haveDownload]="true"
+        ></app-data-table>
+    </mat-grid-tile>
+</mat-grid-list>

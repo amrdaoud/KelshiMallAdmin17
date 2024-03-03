@@ -1,0 +1,31 @@
+<mat-grid-list class="page-with-toolbar" rowHeight="fit" rows="1" cols="1">
+    <mat-grid-tile>
+        <app-data-table
+        title="Users"
+        subtitle="Double click to show info"
+        [data]="data"
+        [dataSize]="dataSize"
+        [columnDefs]="(columnDefs | async)!"
+        [haveSearch]="true"
+        [menuBtns]="menuButtons!"
+        [btns]="btns!"
+        [isAsync]="true"
+        [pageSize]="30"
+        [sortActive]="'creationDate'"
+        [sortDirection]="'desc'"
+        [isLoading]="isLoading$ | async"
+        [isDownloading]="isDownloading$ | async"
+        [menuLoadingRows]="isMenuLoading$ | async"
+        (changed)="tableChange($event)"
+        (downloadClicked)="download($event)"
+        (menuBtnClicked)="tableMenuClicked($event)"
+        (btnClicked)="buttonClicked($event)"
+        [showSubmit]="false"
+        [preserveQueryParams]="true"
+        [preserveSearchQuery]="true"
+        [isReport]="true"
+        [searchQueryPlaceHolder]="'Find by content or mobile'"
+        [haveDownload]="true"
+        ></app-data-table>
+    </mat-grid-tile>
+</mat-grid-list>

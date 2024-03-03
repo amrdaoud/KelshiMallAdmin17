@@ -1,0 +1,21 @@
+<div class="qrCode-container">
+    <qrcode [qrdata]="redeem.redeemCode" elementType="img" [width]="8" [scale]="4" [errorCorrectionLevel]="'M'">
+    </qrcode>
+    <p>
+        {{redeem.redeemCode}}
+    </p>
+</div>
+<mat-progress-bar mode="query" *ngIf="loading$ | async"></mat-progress-bar>
+<div ></div>
+<mat-grid-list rowHeight="500" cols="1">
+    <mat-grid-tile *ngIf="redeemUsers | async">
+        <app-data-table [data]="(redeemUsers | async)!" [columnDefs]="columns" [isReport]="true" [isAsync]="false"></app-data-table>
+    </mat-grid-tile>
+</mat-grid-list>
+<mat-grid-list rowHeight="40" cols="1">
+    <mat-grid-tile>
+        <button mat-raised-button color="warn" [disabled]="!redeem.isActive" (click)="deactivateRedeem()">Deactivate Redeem Code</button>
+    </mat-grid-tile>
+</mat-grid-list>
+
+

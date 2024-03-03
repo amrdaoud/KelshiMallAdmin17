@@ -1,0 +1,22 @@
+<div class="overall-spinner-container" *ngIf="loadingRoles$ | async">
+    <mat-spinner diameter="40"></mat-spinner>
+</div>
+<mat-card>
+    <mat-card-content>
+        <div class="section-header">
+            <h3 class="section-title">"{{data.user.username}}" Roles</h3>
+            <p class="section-subtitle">Assign roles to user</p>
+        </div>
+        <mat-selection-list [(ngModel)]="selectedRoles">
+            <mat-list-option *ngFor="let role of roles$ | async" [value]="role">
+                {{role}}
+            </mat-list-option>
+        </mat-selection-list>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-actions align="end">
+        <button mat-raised-button color="primary" [disabled]="(loadingRoles$ | async) || !selectedRoles || selectedRoles.length == 0" (click)="submit()"><mat-icon>save</mat-icon>SAVE</button>
+        <button mat-stroked-button type="button" mat-dialog-close [disabled]="loadingRoles$ | async" 
+            color="warn"><mat-icon>close</mat-icon>CANCEL</button>
+    </mat-card-actions>
+</mat-card>

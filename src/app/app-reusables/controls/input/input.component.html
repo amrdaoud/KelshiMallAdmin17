@@ -1,0 +1,61 @@
+<mat-form-field *ngIf="type === 'text-area'; else inputControl" floatLabel="always">
+    <mat-label>
+        {{label}}
+    </mat-label>
+    <mat-icon *ngIf="prefixIcon" matPrefix class="mat-prefix-icon">
+        {{prefixIcon}}
+    </mat-icon>
+    <textarea [rows]="lines" matInput #inputControl [formControl]="formControl" [placeholder]="placeHolder" class="no-resize">
+    </textarea>
+    <div matSuffix style="width:20px; padding-right:8px">
+        <mat-icon  matSuffix color="primary"
+            *ngIf="!formControl.pending && formControl.touched && isAsync && formControl.valid">check</mat-icon>
+        <mat-spinner  matSuffix color="primary" diameter=20 *ngIf="(isAsync && formControl.pending)"></mat-spinner>
+    </div>
+    <mat-error *ngIf="!formControl.pending && formControl.touched && formControl.invalid">
+        {{getErrors()}}
+    </mat-error>
+</mat-form-field>
+<ng-template #inputControl>
+    <mat-form-field *ngIf="type !== 'date'; else dateControl" floatLabel="always">
+        <mat-icon *ngIf="prefixIcon" matPrefix class="mat-prefix-icon">
+            {{prefixIcon}}
+        </mat-icon>
+        <mat-label>
+            {{label}}
+        </mat-label>
+        <input matInput #inputControl style="min-height:16px;" [type]="type"
+            [ngStyle]="controlName.toLowerCase().includes('arabic') ? {'font-family': 'Droid Arabic Kufi'} : {'font-family': 'Roboto'}"
+            [formControl]="formControl" [placeholder]="placeHolder">
+        <div matSuffix style="width:20px;padding-right:8px">
+            <mat-icon  matSuffix color="primary"
+                *ngIf="!formControl.pending && formControl.touched && isAsync && formControl.valid">check</mat-icon>
+            <mat-spinner  matSuffix color="primary" diameter=20 *ngIf="isAsync && formControl.pending"></mat-spinner>
+        </div>
+        <mat-error *ngIf="!formControl.pending && formControl.touched && formControl.invalid">
+            {{getErrors()}}
+        </mat-error>
+    </mat-form-field>
+    <ng-template #dateControl>
+        <mat-form-field appearance="outline" floatLabel="always" style="padding: 0px 10px;">
+            <mat-label translate>{{label}}</mat-label>
+            <input matInput [matDatepicker]="picker2" [placeholder]="placeHolder" [formControl]="formControl">
+            <mat-icon matPrefix matDatepickerToggleIcon svgIcon="calendar-icon" style="stroke:#1b1b1b"></mat-icon>
+            <mat-datepicker-toggle matSuffix [for]="picker2">
+                <mat-icon style="color:#1b1b1b" matDatepickerToggleIcon>arrow_drop_down</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+
+        <!-- <mat-form-field floatLabel="always">
+            <mat-label translate>{{label}}</mat-label>
+            <input matInput [matDatepicker]="picker2" [formControl]="formControl" [placeholder]="placeHolder">
+            <mat-hint>M/D/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+            <mat-error *ngIf="!formControl.pending && formControl.touched && formControl.invalid">
+                {{getErrors()}}
+            </mat-error>
+        </mat-form-field> -->
+    </ng-template>
+</ng-template>

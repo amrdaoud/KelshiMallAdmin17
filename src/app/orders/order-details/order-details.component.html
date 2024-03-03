@@ -1,0 +1,230 @@
+<mat-grid-list [cols]="(isHandset$ | async) ? 1 : 2" rowHeight="300">
+  <mat-grid-tile [colspan]="(isHandset$ | async) ? 1 : 2">
+    <mat-card class="full-page-card">
+      <div class="map-container">
+        <google-map height="100%" width="100%" [center]="center" [zoom]="zoom">
+          @if (directionsResults$ | async; as directionsResults) {
+          <map-directions-renderer [directions]="directionsResults" />
+          }
+        </google-map>
+      </div>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+<div *ngIf="order">
+  <h3 class="mat-h3" style="width:100%; text-align: center; margin-bottom: 0px;">
+    <span *ngIf="order">Order #{{order.orderId}} on {{order.orderDate | date : 'MMM dd, y, hh:mm a'}}</span>
+  </h3>
+  <h5 class="mat-h5" style="width:100%; text-align: center; color: #888;margin-top: 0px;">
+    <span *ngIf="order">{{order.direction}} by {{order.methodName}}</span>
+  </h5>
+  <mat-grid-list cols="1" rowHeight="200">
+    <mat-grid-tile>
+      <div class="full-page-card">
+        <app-step-progress-bar [statuses]="order.statusHistory"></app-step-progress-bar>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <mat-grid-list [cols]="(isHandset$ | async) ? 1 : 2" rowHeight="300">
+    <mat-grid-tile>
+      <mat-card class="full-page-card">
+        <div *ngIf="order.isFreeDelivery" class="bandana">
+          Delivery Payer
+        </div>
+        <mat-card-header>
+          <mat-card-title>
+            (A) Pickup Information
+          </mat-card-title>
+        </mat-card-header>
+        <div class="info-card-content">
+          <div class="product-image">
+            <img [src]="order.postImage">
+            <div style="text-align: center;">{{order.postName}}</div>
+            <div style="text-align: center; font-size: 12px; color: red; font-weight: bold;">{{order.postPrice |
+              currency}}</div>
+          </div>
+          <div class="info-card-info">
+            <table width="100%">
+              <tr>
+                <th>
+                  Store
+                </th>
+                <td>
+                  {{order.sellerStoreTitle}}
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  Sender Name
+                </th>
+                <td>
+                  {{order.sellerRecepientName}}
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  Sender Phone
+                </th>
+                <td>
+                  {{order.sellerRecepientMobileNumber}}
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  Address Info
+                </th>
+                <td>
+                  {{order.sellerAddressNote}}
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  Shipment Note
+                </th>
+                <td>
+                  {{order.sellerNote}}
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  Delivery Provider
+                </th>
+                <td>
+                  {{order.providerName}}
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  Delivery Method
+                </th>
+                <td>
+                  {{order.methodName}}
+                </td>
+              </tr>
+              <tr *ngIf="order.isFreeDelivery">
+                <th>
+                  Delivery Fee
+                </th>
+                <td class="accent-color">
+                  {{order.deliveryFee | currency}}
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card class="full-page-card">
+        <div *ngIf="!order.isFreeDelivery" class="bandana">
+          Delivery Payer
+        </div>
+        <mat-card-header>
+          <mat-card-title>
+            (B) Delivery Information
+          </mat-card-title>
+        </mat-card-header>
+        <div class="info-card-content">
+          <div class="info-card-info">
+            <table width="100%">
+              <tr>
+                <th>
+                  Store
+                </th>
+                <td>
+                  {{order.buyerStoreTitle}}
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  Receiver Name
+                </th>
+                <td>
+                  {{order.buyerRecepientName}}
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  Reciever Phone
+                </th>
+                <td>
+                  {{order.buyerRecepientMobileNumber}}
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  Address Info
+                </th>
+                <td>
+                  {{order.buyerAddressNote}}
+                </td>
+              </tr>
+              <tr *ngIf="!order.isFreeDelivery">
+                <th>
+                  Delivery Fee
+                </th>
+                <td>
+                  {{order.deliveryFee | currency}}
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  Taxes
+                </th>
+                <td>
+                  {{order.taxesFee | currency}}
+                </td>
+              </tr>
+              <tr *ngIf="!order.isFreeDelivery">
+                <th>
+                  Delivery Fee
+                </th>
+                <td class="accent-color">
+                  {{order.deliveryFee | currency}}
+                </td>
+              </tr>
+              <tr>
+              <tr>
+                <th>
+                  Total Pay
+                </th>
+                <td class="green-color">
+                  {{(order.isFreeDelivery ? ((order.postPrice ?? 0) + (order.taxesFee ?? 0)) : order.totalPrice) |
+                  currency}}
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <mat-grid-list [cols]="2" rowHeight="60" *ngIf="!isDeliveryManager">
+    <mat-grid-tile>
+      <button mat-raised-button color="primary" style="width:90%" [disabled]="changingStatus$ | async"
+        (click)="accept()" *ngIf="order.canAccept">{{order.acceptName}}</button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button mat-raised-button color="warn" style="width:90%" [disabled]="changingStatus$ | async" (click)="reject()"
+        *ngIf="order.canReject">{{order.rejectName}}</button>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <mat-grid-list cols="1" rowHeight="90" *ngIf="isDeliveryManager">
+    <mat-grid-tile>
+      <mat-form-field style="min-width:50%;max-width:100%">
+        <mat-label>
+          Change Order Status
+        </mat-label>
+        <mat-select [(ngModel)]="selectedStatus" placeholder="Select Status"
+        (valueChange)="changeStatus($event)" [disabled]="(changingStatus$ | async)!">
+          <mat-option *ngFor="let status of (statuses$ | async)" [value]="status" [disabled]="status.orderStatusId === order.statusId">
+            {{status.orderStatusName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+<div style="height: 10px">
+  <mat-progress-bar *ngIf="(loadingOrder$ | async) || (changingStatus$ | async)" mode="query"></mat-progress-bar>
+</div>

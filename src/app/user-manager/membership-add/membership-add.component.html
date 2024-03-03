@@ -1,0 +1,31 @@
+<div class="overall-spinner-container" *ngIf="loadingAdd$ | async">
+    <mat-spinner diameter="40"></mat-spinner>
+</div>
+<form [formGroup]="frm" (ngSubmit)="submit()">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Change User Membership</mat-card-title>
+            <mat-card-subtitle>Please fill all needed fields</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-grid-list rowHeight="90" cols="1" class="content">
+                <mat-grid-tile>
+                    <app-select [options]="(memberships$ | async)!"
+                    [isLoading]="(loadingMemberships$ | async)!"
+                    [optionDisplay]="'name'" [optionValue]="'membershipId'"
+                    [label]="'Membership'" controlName="membershipId" [formGroup]="frm">
+                    </app-select>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <app-select [options]="months"
+                    [optionDisplay]="'Name'" [optionValue]="'Value'"
+                    [label]="'Months'" controlName="months" [formGroup]="frm">
+                    </app-select>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" [disabled]="frm.invalid" style="width:100%">Change</button>
+        </mat-card-actions>
+    </mat-card>
+    </form>

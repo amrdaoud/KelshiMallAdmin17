@@ -1,0 +1,41 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title style="margin-bottom: 10px;">
+            Sending SMS to
+        </mat-card-title>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+        <mat-selection-list dense class="number-list" [(ngModel)]="selectedData">
+            <mat-list-option *ngFor="let recepient of data" [value]="recepient">
+                {{recepient}}
+            </mat-list-option>
+        </mat-selection-list>
+        <mat-divider></mat-divider>
+        <div>
+            This message will be sent in: 
+            <button mat-button color="primary" [mat-menu-trigger-for]="langMenu">
+                {{language === 1 ? 'English' : 'Arabic'}}
+            </button>
+        </div>
+        <mat-menu #langMenu="matMenu">
+            <button mat-menu-item (click)="language = 2"><mat-icon>language</mat-icon>Arabic</button>
+            <button mat-menu-item (click)="language = 1"><mat-icon>language</mat-icon>English</button>
+        </mat-menu>
+        <mat-divider></mat-divider>
+        <mat-form-field style="margin-top: 20px; width:100%">
+            <mat-label>
+                Message Body
+            </mat-label>
+            <textarea [(ngModel)]="body" matInput placeholder="ex: this is the body of the SMS"></textarea>
+        </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <ng-container *ngIf="!(loading$ | async)">
+            <button mat-raised-button color="primary" [disabled]="!selectedData || selectedData.length === 0 || !body" (click)="sendSms()">SEND</button>
+            <button mat-stroked-button mat-dialog-close>CANCEL</button>
+        </ng-container>
+        <mat-progress-bar mode="query" *ngIf="loading$ | async"></mat-progress-bar>
+        
+    </mat-card-actions>
+</mat-card>

@@ -1,0 +1,8 @@
+.number-list {
+    max-height: 200px;
+    overflow-y: auto;
+    .mat-mdc-list-item {
+        font-size: 14px;
+        height:30px !important;
+    }
+}

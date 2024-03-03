@@ -1,0 +1,16 @@
+.account-card .logo-container {
+    align-content: center;
+    height: 100px;
+    width: 100%;
+    text-align: center;
+    img {
+      padding: 10px 0px;
+      height: 80px
+    }
+  }
+  .account-card .mat-mdc-card-header {
+    margin-bottom: 20px;
+  }
+  .account-card .mat-mdc-card-content {
+    padding: 0px;
+  }

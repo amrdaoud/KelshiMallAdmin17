@@ -1,0 +1,34 @@
+:host {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width:100%;
+    padding: 0px 10px;
+    .mat-mdc-form-field {
+        width:100%;
+    }
+}
+.mat-prefix-icon {
+        padding-top: 0px ;
+        padding-bottom: 0px ;
+        color: rgb(180,180,180);
+}
+.no-resize {
+    resize: none;
+}
+input:disabled {
+    color: #000 !important;
+}
+textarea:disabled {
+    color: #000 !important;
+}
+::ng-deep .mat-mdc-select-disabled .mat-mdc-select-value {
+    color: #000 !important;
+}
+::ng-deep .mdc-text-field .mdc-floating-label {
+    color: #3a3a3a !important;
+}
+.mat-mdc-form-field {
+    margin: 5px;
+    width:100%;
+}

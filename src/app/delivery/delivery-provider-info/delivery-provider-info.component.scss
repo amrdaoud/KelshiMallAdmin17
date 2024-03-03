@@ -1,0 +1,58 @@
+@import '../../../variables.scss';
+.main-page {
+        height: calc(100% - 0px);
+}
+.main-container {
+    height:100%;
+    overflow-y: auto;
+}
+.provider-info-card {
+    width:100%;
+    min-height:100%;
+    overflow-y: auto;    
+}
+.provider-info-card-header {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    align-items: center;
+    gap: 5px;
+}
+.provider-card-logo {
+    background-color: #fff;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 0.5px solid $warning-color;
+    object-fit: cover;
+}
+.provider-info-actions {
+    button {
+        width: 40%;
+        margin-left: 5%;
+    }
+}
+.area-expansion {
+    width:100%;
+}
+.tree-container {
+    overflow-y: auto;
+}
+.deactivate-color {
+    color: $warn-color;
+}
+.activate-color {
+    color: $primary-color;
+}
+.delete-color:not(.mat-expanded) {
+    background-color: rgba($color: red, $alpha: 0.7);
+    .mat-expansion-panel-header-title {
+        color: #fff; 
+    }
+}
+.delete-color:not(.mat-expanded):hover {
+    background-color: rgba($color: red, $alpha: 0.5) !important;
+}
